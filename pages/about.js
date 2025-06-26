@@ -2,7 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { ArrowLeft as ArrowLeftIcon, Zap, Image as ImageIcon, Sparkles } from "lucide-react";
 
-import { appName, appMetaDescription } from "./index";
+const appName = "AI图像编辑器";
+const appMetaDescription = "使用AI技术，通过简单的文字描述即可智能编辑图片。支持添加物体、改变颜色、修改背景等多种编辑功能，让图片编辑变得简单有趣。";
 
 export default function About() {
   return (
@@ -54,7 +55,7 @@ export default function About() {
                 <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
                 <div>
                   <h3 className="font-semibold">描述修改</h3>
-                  <p className="text-sm opacity-70">用简单的中文描述你想要的修改，比如"把天空变成紫色"</p>
+                  <p className="text-sm opacity-70">用简单的中文描述你想要的修改，比如&ldquo;把天空变成紫色&rdquo;</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
