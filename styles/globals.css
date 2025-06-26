@@ -1,41 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=SF+Pro+Text:wght@300;400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Apple风格基础变量 */
+:root {
+  --apple-blue: #007AFF;
+  --apple-green: #30D158;
+  --apple-orange: #FF9500;
+  --apple-red: #FF3B30;
+  --apple-purple: #AF52DE;
+  --apple-gray: #8E8E93;
+  --apple-gray-light: #F2F2F7;
+  --apple-gray-dark: #1C1C1E;
+  --shadow-apple: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-apple-lg: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --border-radius-apple: 12px;
+  --border-radius-apple-lg: 16px;
+}
+
+/* 全局样式重置 */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
 input {
-  @apply border;
-  @apply border-solid;
-  @apply border-gray-300;
-  /* @apply rounded-md; */
-  @apply px-4;
-  @apply py-2;
+  @apply border-0;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-apple);
+  @apply px-4 py-3;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(20px);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--apple-blue);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Apple风格按钮系统 */
+.modern-button {
+  @apply inline-flex items-center;
+  padding: 10px 20px;
+  border-radius: var(--border-radius-apple);
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  backdrop-filter: blur(20px);
+  
+  /* 默认样式 */
+  background: rgba(255, 255, 255, 0.8);
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-apple);
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-apple-lg);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.modern-button.primary {
+  background: linear-gradient(135deg, var(--apple-blue), #0056CC);
+  color: white;
+  border: none;
+}
+
+.modern-button.primary:hover {
+  background: linear-gradient(135deg, #0056CC, var(--apple-blue));
+}
+
+.modern-button.secondary {
+  background: rgba(142, 142, 147, 0.1);
+  color: var(--apple-gray);
+  border: 1px solid rgba(142, 142, 147, 0.2);
+}
+
+.modern-button.secondary:hover {
+  background: rgba(142, 142, 147, 0.2);
+}
+
+/* 卡片容器样式 */
+.apple-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--border-radius-apple-lg);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-apple-lg);
+  backdrop-filter: blur(20px);
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.apple-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 .border-hairline {
-  @apply border border-black border-opacity-10;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .lil-button {
-  @apply inline-block;
-  @apply text-sm;
-  @apply text-gray-500;
-  @apply rounded-md;
-  @apply py-2;
-  @apply mx-3;
+  @apply modern-button;
 }
 
 .lil-text {
   @apply text-sm;
-  @apply text-gray-500;
+  color: var(--apple-gray);
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .lil-text a {
-  @apply text-gray-800;
+  color: var(--apple-blue);
   @apply underline;
+  text-decoration-color: rgba(0, 122, 255, 0.3);
 }
 
 .icon {
-  @apply inline relative mr-1;
+  @apply inline relative mr-2;
   top: -0.1em;
   width: 1.1em;
   height: 1.1em;
@@ -44,11 +148,13 @@ input {
 .prose {
   @apply mt-8;
   @apply text-lg;
-  @apply text-gray-500;
+  color: #1d1d1f;
   @apply leading-7;
+  font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 .prose a {
-  @apply text-gray-600;
+  color: var(--apple-blue);
   @apply underline;
+  text-decoration-color: rgba(0, 122, 255, 0.3);
 }

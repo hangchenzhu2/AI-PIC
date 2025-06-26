@@ -20,29 +20,30 @@ export default function Messages({ events, isProcessing, onUndo }) {
           return (
             <Fragment key={"image-" + index}>
               <Message sender="replicate" shouldFillWidth>
-                <Image
-                  alt={
-                    ev.prompt
-                      ? `The result of the prompt "${ev.prompt}" on the previous image`
-                      : "The source image"
-                  }
-                  width="512"
-                  height="512"
-                  priority={true}
-                  className="w-full h-auto rounded-lg"
-                  src={ev.image}
-                />
+                <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white p-2">
+                  <Image
+                    alt={
+                      ev.prompt
+                        ? `对提示词"${ev.prompt}"处理后的图片结果`
+                        : "原始图片"
+                    }
+                    width="512"
+                    height="512"
+                    priority={true}
+                    className="w-full h-auto rounded-xl"
+                    src={ev.image}
+                  />
+                </div>
 
                 {onUndo && index > 0 && index === events.length - 1 && (
-                  <div className="mt-2 text-right">
+                  <div className="mt-4 text-center">
                     <button
-                      className="lil-button"
+                      className="modern-button secondary"
                       onClick={() => {
                         onUndo(index);
                       }}
                     >
-                      <UndoIcon className="icon" /> Undo and try a different
-                      change
+                      <UndoIcon className="icon" /> 撤销并尝试其他修改
                     </button>
                   </div>
                 )}
@@ -51,8 +52,8 @@ export default function Messages({ events, isProcessing, onUndo }) {
               {(isProcessing || index < events.length - 1) && (
                 <Message sender="replicate" isSameSender>
                   {index === 0
-                    ? "What should we change?"
-                    : "What should we change now?"}
+                    ? "你想要修改什么？"
+                    : "接下来想要做什么修改？"}
                 </Message>
               )}
             </Fragment>
@@ -70,7 +71,10 @@ export default function Messages({ events, isProcessing, onUndo }) {
 
       {isProcessing && (
         <Message sender="replicate">
-          <PulseLoader color="#999" size={7} />
+          <div className="flex items-center gap-3">
+            <PulseLoader color="var(--apple-blue)" size={8} />
+            <span className="text-sm opacity-70">AI正在处理中...</span>
+          </div>
         </Message>
       )}
 

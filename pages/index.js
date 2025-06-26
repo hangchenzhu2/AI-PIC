@@ -10,9 +10,9 @@ import { getRandomSeed } from "lib/seeds";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export const appName = "Paint by Text";
-export const appSubtitle = "Edit your photos using written instructions, with the help of an AI.";
-export const appMetaDescription = "Edit your photos using written instructions, with the help of an AI.";
+export const appName = "AI图像编辑器";
+export const appSubtitle = "通过文字描述，让AI为你智能编辑图片";
+export const appMetaDescription = "使用AI技术，通过简单的文字描述即可智能编辑图片。支持添加物体、改变颜色、修改背景等多种编辑功能，让图片编辑变得简单有趣。";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -108,41 +108,76 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>{appName}</title>
+        <title>{appName} - AI智能图片编辑工具</title>
         <meta name="description" content={appMetaDescription} />
-        <meta property="og:title" content={appName} />
+        <meta name="keywords" content="AI图片编辑,智能修图,文字编辑图片,AI修图工具,在线图片编辑器" />
+        <meta name="author" content="AI Image Editor" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://paintbytext.chat/" />
+        <meta property="og:title" content={`${appName} - AI智能图片编辑工具`} />
         <meta property="og:description" content={appMetaDescription} />
         <meta property="og:image" content="https://paintbytext.chat/opengraph.jpg" />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://paintbytext.chat/" />
+        <meta property="twitter:title" content={`${appName} - AI智能图片编辑工具`} />
+        <meta property="twitter:description" content={appMetaDescription} />
+        <meta property="twitter:image" content="https://paintbytext.chat/opengraph.jpg" />
+        
+        {/* Additional SEO */}
+        <link rel="canonical" href="https://paintbytext.chat/" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="zh-CN" />
       </Head>
 
-      <main className="container max-w-[700px] mx-auto p-5">
-        <hgroup>
-          <h1 className="text-center text-5xl font-bold m-6">{appName}</h1>
-          <p className="text-center text-xl opacity-60 m-6">
-            {appSubtitle}
-          </p>
-        </hgroup>
+      <main className="container max-w-[800px] mx-auto p-6">
+        <div className="apple-card mb-8">
+          <hgroup className="text-center">
+            <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              {appName}
+            </h1>
+            <p className="text-xl opacity-70 mb-6 leading-relaxed">
+              {appSubtitle}
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 text-sm opacity-60">
+              <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full">AI智能识别</span>
+              <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full">文字编辑</span>
+              <span className="px-3 py-1 bg-purple-100 text-purple-600 rounded-full">实时预览</span>
+              <span className="px-3 py-1 bg-orange-100 text-orange-600 rounded-full">高质量输出</span>
+            </div>
+          </hgroup>
+        </div>
 
-        <Messages
-          events={events}
-          isProcessing={isProcessing}
-          onUndo={(index) => {
-            setInitialPrompt(events[index - 1].prompt);
-            setEvents(
-              events.slice(0, index - 1).concat(events.slice(index + 1))
-            );
-          }}
-        />
+        <div className="apple-card">
+          <Messages
+            events={events}
+            isProcessing={isProcessing}
+            onUndo={(index) => {
+              setInitialPrompt(events[index - 1].prompt);
+              setEvents(
+                events.slice(0, index - 1).concat(events.slice(index + 1))
+              );
+            }}
+          />
 
-        <PromptForm
-          initialPrompt={initialPrompt}
-          isFirstPrompt={events.length === 1}
-          onSubmit={handleSubmit}
-          disabled={isProcessing}
-        />
+          <PromptForm
+            initialPrompt={initialPrompt}
+            isFirstPrompt={events.length === 1}
+            onSubmit={handleSubmit}
+            disabled={isProcessing}
+          />
 
-        <div className="mx-auto w-full">
-          {error && <p className="bold text-red-500 pb-5">{error}</p>}
+          <div className="mx-auto w-full">
+            {error && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 mb-6">
+                <b>错误:</b> {error}
+              </div>
+            )}
+          </div>
         </div>
 
         <Footer

@@ -1,4 +1,4 @@
-import { Upload as UploadIcon } from "lucide-react";
+import { Upload as UploadIcon, Image as ImageIcon } from "lucide-react";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -10,19 +10,33 @@ export default function Dropzone(props) {
     },
     [onImageDropped]
   );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
+    onDrop,
+    accept: {
+      'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.webp']
+    },
+    multiple: false
+  });
 
   return (
-    <div className="lil-button cursor-pointer select-none" {...getRootProps()}>
-      <div className="m-auto">
+    <div 
+      className={`modern-button cursor-pointer select-none transition-all duration-200 ${
+        isDragActive ? 'bg-blue-100 border-blue-300 scale-105' : ''
+      }`} 
+      {...getRootProps()}
+    >
+      <div className="flex items-center justify-center">
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>Drop the image here ...</p>
+          <div className="flex items-center gap-2">
+            <ImageIcon className="icon text-blue-500" />
+            <span className="text-blue-600">释放以上传图片...</span>
+          </div>
         ) : (
-          <p>
+          <div className="flex items-center gap-2">
             <UploadIcon className="icon" />
-            Upload image
-          </p>
+            <span>上传图片</span>
+          </div>
         )}
       </div>
     </div>
