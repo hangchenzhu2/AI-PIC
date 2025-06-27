@@ -231,7 +231,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
-                  <p>InstructPix2Pix AI会自动为你生成修改后的图片</p>
+                  <p>AI会自动为你生成修改后的图片</p>
                 </div>
               </div>
             </div>
@@ -243,34 +243,68 @@ export default function Home() {
                 <p className="text-center text-gray-600 mb-4">
                   直接描述你想要的图片，AI为你创造
                 </p>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="font-medium mb-2">示例提示词：</p>
-                  <ul className="space-y-1 text-xs">
-                    <li 
-                      className="cursor-pointer hover:text-blue-600 transition-colors"
-                      onClick={() => setPromptValue("一只可爱的小猫坐在阳光下")}
-                    >
-                      • "一只可爱的小猫坐在阳光下"
-                    </li>
-                    <li 
-                      className="cursor-pointer hover:text-blue-600 transition-colors"
-                      onClick={() => setPromptValue("未来城市的科幻建筑")}
-                    >
-                      • "未来城市的科幻建筑"
-                    </li>
-                    <li 
-                      className="cursor-pointer hover:text-blue-600 transition-colors"
-                      onClick={() => setPromptValue("油画风格的山水风景")}
-                    >
-                      • "油画风格的山水风景"
-                    </li>
-                    <li 
-                      className="cursor-pointer hover:text-blue-600 transition-colors"
-                      onClick={() => setPromptValue("卡通风格的动物插画")}
-                    >
-                      • "卡通风格的动物插画"
-                    </li>
-                  </ul>
+                <div className="space-y-2">
+                  <p className="font-medium mb-3">热门提示词：</p>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("一只可爱的小猫坐在阳光下")}
+                  >
+                    🐱 一只可爱的小猫坐在阳光下
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("未来城市的科幻建筑")}
+                  >
+                    🏙️ 未来城市的科幻建筑
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("油画风格的山水风景")}
+                  >
+                    🎨 油画风格的山水风景
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("卡通风格的动物插画")}
+                  >
+                    🐰 卡通风格的动物插画
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("森林中的魔法小屋")}
+                  >
+                    🏠 森林中的魔法小屋
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("海边的日出美景")}
+                  >
+                    🌅 海边的日出美景
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("宇宙中的星球和星云")}
+                  >
+                    🌌 宇宙中的星球和星云
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("古代城堡的壮观景象")}
+                  >
+                    🏰 古代城堡的壮观景象
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("雨后彩虹的美丽场景")}
+                  >
+                    🌈 雨后彩虹的美丽场景
+                  </button>
+                  <button 
+                    className="w-full modern-button text-left" 
+                    onClick={() => setPromptValue("樱花盛开的春天公园")}
+                  >
+                    🌸 樱花盛开的春天公园
+                  </button>
                 </div>
                 <div className="text-center mt-4">
                   <span className="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded-full text-xs font-medium">
