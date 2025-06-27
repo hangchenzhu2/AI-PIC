@@ -1,23 +1,29 @@
 import Replicate from "replicate";
 import packageData from "../../../package.json";
 
-const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN,
-  userAgent: `${packageData.name}/${packageData.version}`
-});
-
-const API_HOST = process.env.REPLICATE_API_HOST || "https://api.replicate.com";
-
 export default async function handler(req, res) {
   console.log("=== API Request Started ===");
   console.log("Method:", req.method);
+  console.log("Headers:", req.headers);
   console.log("Body:", req.body);
-  console.log("REPLICATE_API_TOKEN exists:", !!process.env.REPLICATE_API_TOKEN);
   
-  if (!process.env.REPLICATE_API_TOKEN) {
+  // 详细的环境变量检查
+  const apiToken = process.env.REPLICATE_API_TOKEN;
+  console.log("Environment check:");
+  console.log("- NODE_ENV:", process.env.NODE_ENV);
+  console.log("- NETLIFY:", process.env.NETLIFY);
+  console.log("- API Token exists:", !!apiToken);
+  console.log("- API Token length:", apiToken ? apiToken.length : 0);
+  
+  if (!apiToken) {
     console.error("REPLICATE_API_TOKEN not found");
     return res.status(500).json({ 
-      error: "REPLICATE_API_TOKEN environment variable is not set" 
+      error: "REPLICATE_API_TOKEN environment variable is not set",
+      debug: {
+        nodeEnv: process.env.NODE_ENV,
+        netlify: !!process.env.NETLIFY,
+        availableEnvVars: Object.keys(process.env).filter(key => key.includes('REPLICATE'))
+      }
     });
   }
   
@@ -26,6 +32,11 @@ export default async function handler(req, res) {
   }
 
   try {
+    const replicate = new Replicate({
+      auth: apiToken,
+      userAgent: `${packageData.name}/${packageData.version}`
+    });
+
     // remove null and undefined values
     req.body = Object.entries(req.body).reduce(
       (a, [k, v]) => (v == null ? a : ((a[k] = v), a)),
@@ -42,7 +53,7 @@ export default async function handler(req, res) {
       input: req.body
     });
     
-    console.log("Prediction created:", prediction);
+    console.log("Prediction created successfully:", prediction.id);
 
     res.statusCode = 201;
     res.end(JSON.stringify(prediction));
@@ -50,7 +61,8 @@ export default async function handler(req, res) {
     console.error("API Error:", error);
     res.status(500).json({ 
       error: error.message || "Internal server error",
-      detail: error.toString()
+      detail: error.toString(),
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 }

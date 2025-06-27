@@ -227,7 +227,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                  <p>描述你想要的修改：如"把天空变成紫色"、"添加一只小猫"</p>
+                  <p>描述你想要的修改：如&ldquo;把天空变成紫色&rdquo;、&ldquo;添加一只小猫&rdquo;</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
