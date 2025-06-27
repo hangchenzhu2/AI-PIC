@@ -65,9 +65,14 @@ export default function Home() {
       body: JSON.stringify(body),
     });
     let prediction = await response.json();
+    
+    console.log("API Response status:", response.status);
+    console.log("API Response data:", prediction);
 
     if (response.status !== 201) {
-      setError(prediction.detail);
+      console.error("API Error:", prediction);
+      setError(prediction.detail || "API调用失败，请检查网络连接或稍后重试");
+      setIsProcessing(false);
       return;
     }
 
