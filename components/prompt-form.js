@@ -52,13 +52,13 @@ export default function PromptForm({
           required
         />
 
-        <button
+          <button
           className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-          type="submit"
+            type="submit"
           disabled={!prompt.trim()}
-        >
+          >
           ✨ 生成
-        </button>
+          </button>
       </div>
       
       <div className="mt-4 text-center">

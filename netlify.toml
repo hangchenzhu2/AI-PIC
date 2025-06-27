@@ -8,6 +8,9 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# 注意：REPLICATE_API_TOKEN 需要在 Netlify 控制台的 Environment variables 中设置
+# 不要在这个文件中写入实际的 API token，特别是如果这是一个公开仓库
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -21,18 +21,18 @@ export default function Messages({ events, isProcessing, onUndo }) {
             <Fragment key={"image-" + index}>
               <Message sender="replicate" shouldFillWidth>
                 <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white p-2">
-                  <Image
-                    alt={
-                      ev.prompt
+                <Image
+                  alt={
+                    ev.prompt
                         ? `对提示词"${ev.prompt}"处理后的图片结果`
                         : "原始图片"
-                    }
-                    width="512"
-                    height="512"
-                    priority={true}
+                  }
+                  width="512"
+                  height="512"
+                  priority={true}
                     className="w-full h-auto rounded-xl"
-                    src={ev.image}
-                  />
+                  src={ev.image}
+                />
                 </div>
 
                 {onUndo && index > 0 && index === events.length - 1 && (
