@@ -1,65 +1,40 @@
 import Replicate from "replicate";
-import packageData from "../../../package.json";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
   userAgent: `${packageData.name}/${packageData.version}`
 });
 
+
+
+const API_HOST = process.env.REPLICATE_API_HOST || "https://api.replicate.com";
+
+import packageData from "../../../package.json";
+
 export default async function handler(req, res) {
   if (!process.env.REPLICATE_API_TOKEN) {
-    console.error("REPLICATE_API_TOKEN is not set");
-    res.status(500).json({ detail: "The REPLICATE_API_TOKEN environment variable is not set." });
-    return;
+    throw new Error("The REPLICATE_API_TOKEN environment variable is not set. See README.md for instructions on how to set it.");
   }
+  
+  // remove null and undefined values
+  req.body = Object.entries(req.body).reduce(
+    (a, [k, v]) => (v == null ? a : ((a[k] = v), a)),
+    {}
+  );
 
-  if (req.method !== "POST") {
-    res.status(405).json({ detail: "Method not allowed" });
-    return;
-  }
+  let prediction
 
-  try {
-    console.log("Request body:", req.body);
-    
-    // remove null and undefined values
-    const cleanBody = Object.entries(req.body).reduce(
-      (a, [k, v]) => (v == null ? a : ((a[k] = v), a)),
-      {}
-    );
+  const model = "black-forest-labs/flux-kontext-pro"
+  prediction = await replicate.predictions.create({
+    model,
+    input: req.body
+  });
+  
 
-    console.log("Cleaned body:", cleanBody);
+  console.log({prediction});
 
-    // 根据Replicate的flux-kontext-pro模型要求构建输入参数
-    const input = {
-      prompt: cleanBody.prompt || "",
-      image: cleanBody.input_image || "",
-      // 添加其他可能需要的参数
-      num_inference_steps: 20,
-      guidance_scale: 7.5,
-      width: 512,
-      height: 512,
-    };
-
-    console.log("API input:", input);
-
-    const model = "black-forest-labs/flux-kontext-pro";
-    
-    const prediction = await replicate.predictions.create({
-      model,
-      input: input
-    });
-
-    console.log("Prediction created:", prediction);
-
-    res.status(201).json(prediction);
-
-  } catch (error) {
-    console.error("API Error:", error);
-    res.status(500).json({ 
-      detail: `API Error: ${error.message}`,
-      error: error.toString()
-    });
-  }
+  res.statusCode = 201;
+  res.end(JSON.stringify(prediction));
 }
 
 export const config = {
