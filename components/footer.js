@@ -44,38 +44,6 @@ export default function Footer({ events, startOver, handleImageDropped }) {
           <CodeIcon className="icon" />查看源码
         </Link>
       </div>
-
-      <div className="text-center lil-text mt-8">
-      <div className="inline-block py-2 px-4 border border-yellow-200 rounded-lg bg-[#fef6aa]">
-      🤔 Are you a developer and want to learn how to build this? Check out the{" "}
-        <Link
-          href="https://github.com/replicate/paint-with-words#readme"
-          target="_blank">
-          README
-        </Link>.
-      </div>
-      </div>
-
-      <div className="text-center lil-text mt-8">
-        Powered by{" "}
-        <Link href="https://replicate.com/black-forest-labs" target="_blank">
-          Black Forest Labs
-        </Link>
-        ,{" "}
-        <Link
-          href="https://replicate.com/blog/flux-kontext?utm_source=project&utm_campaign=paintbytext"
-          target="_blank">
-          Replicate
-        </Link>
-        ,{" "}
-        <Link href="https://vercel.com/templates/ai" target="_blank">
-          Vercel
-        </Link>
-        , and{" "}
-        <Link href="https://github.com/replicate/paint-by-text" target="_blank">
-          GitHub
-        </Link>
-      </div>
     </footer>
   );
 }
