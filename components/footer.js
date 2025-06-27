@@ -35,14 +35,7 @@ export default function Footer({ events, startOver, handleImageDropped }) {
           </Link>)
         )}
 
-        <Link
-          href="https://github.com/replicate/paint-by-text"
-          className="modern-button secondary"
-          target="_blank"
-          rel="noopener noreferrer">
 
-          <CodeIcon className="icon" />查看源码
-        </Link>
       </div>
     </footer>
   );

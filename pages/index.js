@@ -2,6 +2,7 @@ import Messages from "components/messages";
 import PromptForm from "components/prompt-form";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import Footer from "components/footer";
 
@@ -134,49 +135,134 @@ export default function Home() {
         <meta name="language" content="zh-CN" />
       </Head>
 
-      <main className="container max-w-[800px] mx-auto p-6">
-        <div className="apple-card mb-8">
-          <hgroup className="text-center">
-            <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {appName}
-            </h1>
-            <p className="text-xl opacity-70 mb-6 leading-relaxed">
-              {appSubtitle}
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 text-sm opacity-60">
-              <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full">AI智能识别</span>
-              <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full">文字编辑</span>
-              <span className="px-3 py-1 bg-purple-100 text-purple-600 rounded-full">实时预览</span>
-              <span className="px-3 py-1 bg-orange-100 text-orange-600 rounded-full">高质量输出</span>
-            </div>
-          </hgroup>
+      <main className="container max-w-[1400px] mx-auto p-6">
+        {/* 页面标题 */}
+        <div className="apple-card mb-8 text-center">
+          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            {appName}
+          </h1>
+          <p className="text-xl opacity-70 mb-6 leading-relaxed">
+            {appSubtitle}
+          </p>
+          <div className="flex flex-wrap justify-center gap-2 text-sm opacity-60">
+            <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full">AI智能识别</span>
+            <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full">文字编辑</span>
+            <span className="px-3 py-1 bg-purple-100 text-purple-600 rounded-full">实时预览</span>
+            <span className="px-3 py-1 bg-orange-100 text-orange-600 rounded-full">高质量输出</span>
+          </div>
         </div>
 
-        <div className="apple-card">
-          <Messages
-            events={events}
-            isProcessing={isProcessing}
-            onUndo={(index) => {
-              setInitialPrompt(events[index - 1].prompt);
-              setEvents(
-                events.slice(0, index - 1).concat(events.slice(index + 1))
-              );
-            }}
-          />
+        {/* 主要内容区域 */}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* 左侧：聊天交互区域 */}
+          <div className="lg:col-span-2">
+            <div className="apple-card">
+              <Messages
+                events={events}
+                isProcessing={isProcessing}
+                onUndo={(index) => {
+                  setInitialPrompt(events[index - 1].prompt);
+                  setEvents(
+                    events.slice(0, index - 1).concat(events.slice(index + 1))
+                  );
+                }}
+              />
 
-          <PromptForm
-            initialPrompt={initialPrompt}
-            isFirstPrompt={events.length === 1}
-            onSubmit={handleSubmit}
-            disabled={isProcessing}
-          />
+              <PromptForm
+                initialPrompt={initialPrompt}
+                isFirstPrompt={events.length === 1}
+                onSubmit={handleSubmit}
+                disabled={isProcessing}
+              />
 
-          <div className="mx-auto w-full">
-            {error && (
-              <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 mb-6">
-                <b>错误:</b> {error}
+              <div className="mx-auto w-full">
+                {error && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 mb-6">
+                    <b>错误:</b> {error}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+          </div>
+
+          {/* 右侧：使用说明 */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* 功能说明1：图片编辑 */}
+            <div className="apple-card">
+              <h3 className="text-xl font-bold mb-4 text-center">🎨 图片智能编辑</h3>
+              <div className="mb-4">
+                <Image
+                  src="/what can InstructPix2Pix do.jpg"
+                  alt="AI图片编辑示例"
+                  width={300}
+                  height={200}
+                  className="w-full h-auto rounded-lg shadow-md"
+                />
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start gap-3">
+                  <span className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                  <p>上传你想要编辑的图片</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                  <p>描述你想要的修改：如&ldquo;把天空变成紫色&rdquo;、&ldquo;添加一只小猫&rdquo;</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                  <p>AI会自动为你生成修改后的图片</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 功能说明2：图片生成 */}
+            <div className="apple-card">
+              <h3 className="text-xl font-bold mb-4 text-center">✨ AI图片生成</h3>
+              <div className="space-y-3 text-sm">
+                <p className="text-center text-gray-600 mb-4">
+                  直接描述你想要的图片，AI为你创造
+                </p>
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="font-medium mb-2">示例提示词：</p>
+                  <ul className="space-y-1 text-xs">
+                    <li>• &ldquo;一只可爱的小猫坐在阳光下&rdquo;</li>
+                    <li>• &ldquo;未来城市的科幻建筑&rdquo;</li>
+                    <li>• &ldquo;油画风格的山水风景&rdquo;</li>
+                    <li>• &ldquo;卡通风格的动物插画&rdquo;</li>
+                  </ul>
+                </div>
+                <div className="text-center mt-4">
+                  <span className="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded-full text-xs font-medium">
+                    💡 描述越详细，效果越精准
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* 快捷操作 */}
+            <div className="apple-card">
+              <h3 className="text-lg font-bold mb-3 text-center">⚡ 快捷操作</h3>
+              <div className="space-y-2">
+                <button className="w-full modern-button text-left" onClick={() => {
+                  const input = document.querySelector('input[name="prompt"]');
+                  if (input) input.value = "把这张图片变成油画风格";
+                }}>
+                  🎨 转换为油画风格
+                </button>
+                <button className="w-full modern-button text-left" onClick={() => {
+                  const input = document.querySelector('input[name="prompt"]');
+                  if (input) input.value = "添加美丽的日落背景";
+                }}>
+                  🌅 添加日落背景
+                </button>
+                <button className="w-full modern-button text-left" onClick={() => {
+                  const input = document.querySelector('input[name="prompt"]');
+                  if (input) input.value = "让图片变得更加明亮和鲜艳";
+                }}>
+                  ✨ 增强色彩
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 

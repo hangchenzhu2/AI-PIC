@@ -39,6 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 .modern-button {
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   padding: 10px 20px !important;
   border-radius: var(--border-radius-apple) !important;
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
@@ -94,7 +95,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .apple-card:hover {
-  transform: translateY(-4px) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
 }
 
@@ -113,6 +113,27 @@ input[type="text"]:focus {
   border-color: var(--apple-blue) !important;
   box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1) !important;
   transform: translateY(-1px) !important;
+}
+
+/* 响应式布局优化 */
+@media (max-width: 1024px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .lg\:col-span-2 {
+    grid-column: span 1 !important;
+  }
+  
+  .lg\:col-span-1 {
+    grid-column: span 1 !important;
+  }
+}
+
+/* 快捷操作按钮特殊样式 */
+.modern-button.text-left {
+  justify-content: flex-start !important;
+  text-align: left !important;
 }
 
 /* 兼容旧样式 */

@@ -1,15 +1,12 @@
 import Replicate from "replicate";
+import packageData from "../../../package.json";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
   userAgent: `${packageData.name}/${packageData.version}`
 });
 
-
-
 const API_HOST = process.env.REPLICATE_API_HOST || "https://api.replicate.com";
-
-import packageData from "../../../package.json";
 
 export default async function handler(req, res) {
   if (!process.env.REPLICATE_API_TOKEN) {
